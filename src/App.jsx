@@ -28,7 +28,7 @@ export default function App(){
   function gameStatus(){
     if (!isGameOver){
       return <>
-      <p>{getWord(languages[wrongGuessCount-1].name)}</p>
+      <p className="farewell-messages">{getWord(languages[wrongGuessCount-1].name)}</p>
       </>
     }
     if (isGameOver){
