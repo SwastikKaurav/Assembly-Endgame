@@ -64,6 +64,3 @@ Assembly-Endgame/
 - 🔴 Reveals unguessed letters in red on game over
 - 🔄 New Game button to restart
 
-## 📜 License
-
-MIT
