@@ -1,16 +1,66 @@
-# React + Vite
+# Assembly: Endgame 🎮
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A word-guessing game built with React where you must guess the hidden word before the programming world falls to Assembly!
 
-Currently, two official plugins are available:
+## 🕹️ How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Guess the hidden word one letter at a time by clicking the keyboard buttons
+- You have **8 attempts** before Assembly takes over
+- Each wrong guess eliminates a programming language
+- Guess the word before all languages are gone to win!
 
-## React Compiler
+## 🚀 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (v16 or higher)
+- npm
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/SwastikKaurav/Assembly-Endgame.git
+
+# Navigate into the project
+cd Assembly-Endgame
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+## 🛠️ Built With
+
+- [React](https://react.dev/) — UI library
+- [Vite](https://vitejs.dev/) — Build tool
+- [clsx](https://github.com/lukeed/clsx) — Conditional class names
+- [react-confetti](https://github.com/alampros/react-confetti) — Win celebration effect
+- [Hanken Grotesk](https://fonts.google.com/specimen/Hanken+Grotesk) — Google Font
+
+## 📁 Project Structure
+
+```
+vite-project/
+├── src/
+│   ├── App.jsx         # Main game component
+│   ├── languages.js    # Programming languages data
+│   ├── utils.js        # Helper functions (getWord, getFarewellText)
+│   └── index.css       # Global styles
+├── index.html
+└── package.json
+```
+
+## ✨ Features
+
+- 🎉 Confetti animation on win
+- 💀 Skull overlay on eliminated languages
+- 🟩 Green/red keyboard feedback for correct/wrong guesses
+- 📝 Farewell messages when a language is eliminated
+- 🔴 Reveals unguessed letters in red on game over
+- 🔄 New Game button to restart
+
