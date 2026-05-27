@@ -1,9 +1,10 @@
 import React from "react"
 import {languages} from "./languages.js"
 import {clsx} from "clsx"
+import {getWord,getFarewellText} from "./utils.js"
 
 export default function App(){
-  let [currentWord, setCurrentWord] = React.useState("react")
+  let [currentWord, setCurrentWord] = React.useState(()=>getWord())
   let [guessedLetters, setGuessedLetters] = React.useState([])
 
   const alphabets = "abcdefghijklmnopqrstuvwxyz"
@@ -19,9 +20,38 @@ export default function App(){
     ))
   }
 
-  const languagesElements = languages.map(language=> {
+  function newGame(){
+    setCurrentWord(getWord())
+    setGuessedLetters([])
+  }
+
+  function gameStatus(){
+    if (!isGameOver){
+      return <>
+      <p>{getWord(languages[wrongGuessCount-1].name)}</p>
+      </>
+    }
+    if (isGameOver){
+      if(isGameWon){
+        return <>
+        <h1>You win!</h1>
+        <p>Well done! 🎉</p>
+        </>
+      }
+      else{
+        return <>
+        <h1>Game Over!</h1>
+        <p>You lose! Better start learning Assembly 😭</p>
+        </>
+      }
+    }
+  }
+
+  const languagesElements = languages.map((language,index)=> {
     let styleElements = {backgroundColor: language.backgroundColor, color: language.color}
-    return <p className="language-name" style={styleElements}>{language.name}</p>
+    let languageLost = index < wrongGuessCount
+    let classname = clsx("language-chip",{lost:languageLost})
+    return <p className={classname} style={styleElements}>{language.name}</p>
   })
 
   const letterElements = currentWord.split("").map(letter=>{
@@ -33,8 +63,9 @@ export default function App(){
     let isGuessed = guessedLetters.includes(char)
     let isCorrect = isGuessed && currentWord.includes(char)
     let isWrong = isGuessed && !currentWord.includes(char)
-    const classname = clsx({correct: isCorrect, wrong: isWrong})
-    return <button key={char} className={classname} onClick={()=>addGuessesLetters(char)}>{char.toUpperCase()}</button>
+    const classname = clsx({correct: isCorrect, wrong: isWrong, over: isGameOver})
+
+    return <button key={char} className={classname} disabled={isGameOver} onClick={()=>addGuessesLetters(char)}>{char.toUpperCase()}</button>
   })
 
   return (
@@ -46,11 +77,10 @@ export default function App(){
       </header>
       
       <section className="game-status">
-        <h2>You win!</h2>
-        <p>Well done! 🎉</p>
+        {gameStatus}
       </section>
       
-      <section className="languages-chip">
+      <section className="language-chips">
         {languagesElements}
       </section>
       
@@ -63,7 +93,7 @@ export default function App(){
       </section>
 
       <section className="new-game-button-section">
-        {isGameOver ? <button className="new-game-button">New Game</button>:null}
+        {isGameOver ? <button className="new-game-button" onClick={newGame}>New Game</button>:null}
       </section>
 
     </main>

@@ -63,7 +63,7 @@ section.game-status > p{
   margin: 5px;
 }
 
-section.languages-chip{
+section.language-chips{
   display: flex;
   justify-content: center;
   gap: 5px;
@@ -72,13 +72,29 @@ section.languages-chip{
   margin-bottom: 30px;
 }
 
-section.languages-chip > p.language-name{
+section.language-chips > p.language-chip{
   font-weight: 700;
   font-size: 12px;
   text-align: center;
   border-radius: 3px;
   padding: 4.5px;
   margin: 0;
+  position: relative;
+}
+
+section.language-chips > p.language-chip.lost::before{
+  position: absolute;
+  content: "💀";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 section.word {
@@ -127,6 +143,11 @@ section.keyboard > button.correct{
 
 section.keyboard > button.wrong{
   background-color: #EC5D49;
+}
+
+section.keyboard > button.over{
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 section.new-game-button-section > button.new-game-button{
