@@ -11,13 +11,6 @@ A word-guessing game built with React where you must guess the hidden word befor
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm
-
-### Installation
-
 ```bash
 # Clone the repository
 git clone https://github.com/SwastikKaurav/Assembly-Endgame.git
@@ -45,14 +38,21 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ## 📁 Project Structure
 
 ```
-vite-project/
+Assembly-Endgame/
+├── public/
 ├── src/
 │   ├── App.jsx         # Main game component
+│   ├── main.jsx        # React entry point
+│   ├── index.css       # Global styles
 │   ├── languages.js    # Programming languages data
 │   ├── utils.js        # Helper functions (getWord, getFarewellText)
-│   └── index.css       # Global styles
+│   └── words.js        # Word bank
+├── .gitignore
+├── eslint.config.js
 ├── index.html
-└── package.json
+├── package.json
+├── package-lock.json
+└── vite.config.js
 ```
 
 ## ✨ Features
@@ -64,3 +64,6 @@ vite-project/
 - 🔴 Reveals unguessed letters in red on game over
 - 🔄 New Game button to restart
 
+## 📜 License
+
+MIT
