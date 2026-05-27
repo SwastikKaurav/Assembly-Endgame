@@ -63,7 +63,8 @@ export default function App(){
 
   const letterElements = currentWord.split("").map((letter,index)=>{
     const isCorrect = guessedLetters.includes(letter) && currentWord.includes(letter)
-    return <span className="letter" key={index}>{isGameOver ? letter.toUpperCase(): isCorrect ? letter.toUpperCase():null}</span>
+    let styling = guessedLetters.includes(letter) ? null:{color: "red"} 
+    return <span className="letter" key={index} style={styling}>{isGameOver ? letter.toUpperCase(): isCorrect ? letter.toUpperCase():null}</span>
   })
 
   const alphabetElements = alphabets.split("").map(char => {
