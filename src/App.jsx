@@ -25,10 +25,14 @@ export default function App(){
     setGuessedLetters([])
   }
 
+  function gameStatusClass(){
+    return clsx("game-status",{won: isGameWon, lost:isGameLost})
+  }
+
   function gameStatus(){
     if (!isGameOver){
       return <>
-      <p className="farewell-messages">{getWord(languages[wrongGuessCount-1].name)}</p>
+      <p className="farewell-messages">{getFarewellText(languages[wrongGuessCount-1].name)}</p>
       </>
     }
     if (isGameOver){
@@ -76,7 +80,7 @@ export default function App(){
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
       
-      <section className="game-status">
+      <section className={gameStatusClass}>
         {gameStatus}
       </section>
       

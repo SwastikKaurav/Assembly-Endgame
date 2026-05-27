@@ -50,10 +50,11 @@ section.game-status{
     min-height: 60px;
     border-radius: 4px;
     margin-block: 30px;
-    background-color: #10A95B;
+    background-color: #282726;
 }
 
-section.game-status > h2{
+
+section.game-status > h1{
   font-size: 1.25rem;
   margin: 5px;
 }
@@ -63,7 +64,16 @@ section.game-status > p{
   margin: 5px;
 }
 
-section.game-status > p.farewell-message{
+section.game-status.won{
+    background-color: #10A95B;
+}
+
+section.game-status.lost{
+  background-color: #BA2A2A;
+}
+
+section.game-status > p.farewell-messages{
+  font-style: italic;
   background-color: #7A5EA7;
 }
 
