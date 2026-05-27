@@ -2,6 +2,7 @@ import React from "react"
 import {languages} from "./languages.js"
 import {clsx} from "clsx"
 import {getWord,getFarewellText} from "./utils.js"
+import Confetti from "react-confetti"
 
 export default function App(){
   let [currentWord, setCurrentWord] = React.useState(()=>getWord())
@@ -63,7 +64,7 @@ export default function App(){
 
   const letterElements = currentWord.split("").map((letter,index)=>{
     const isCorrect = guessedLetters.includes(letter) && currentWord.includes(letter)
-    let styling = guessedLetters.includes(letter) ? null:{color: "red"} 
+    let styling = isGameOver && !guessedLetters.includes(letter) ? {color: "#EC5D49"} : null
     return <span className="letter" key={index} style={styling}>{isGameOver ? letter.toUpperCase(): isCorrect ? letter.toUpperCase():null}</span>
   })
 
@@ -78,6 +79,8 @@ export default function App(){
 
   return (
     <main>
+
+      {isGameWon && <Confetti recycle={false} numberOfPieces={2000}/>}
 
       <header>
         <h1>Assembly: Endgame</h1>
