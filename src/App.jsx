@@ -10,11 +10,14 @@ export default function App(){
   const alphabets = "abcdefghijklmnopqrstuvwxyz"
 
   let wrongGuessCount =  guessedLetters.filter(letter=> !currentWord.includes(letter)).length
+  
   let isGameWon = currentWord.split("").every(letter=> guessedLetters.includes(letter))
   let isGameLost = wrongGuessCount >= languages.length - 1
   let isGameOver = isGameWon || isGameLost
 
-  function addGuessesLetters(char){
+  let isLastGuessIncorrect = guessedLetters.length > 0 && !currentWord.includes(guessedLetters[guessedLetters.length - 1])
+
+  function addGuessedLetters(char){
     setGuessedLetters(prevLetters => (
       prevLetters.includes(char) ? prevLetters:[...prevLetters, char]
     ))
@@ -25,42 +28,42 @@ export default function App(){
     setGuessedLetters([])
   }
 
-  function gameStatusClass(){
-    return clsx("game-status",{won: isGameWon, lost:isGameLost})
-  }
+  const gameStatusClass = clsx("game-status",{won: isGameWon, lost:isGameLost, farewell: !isGameOver&&isLastGuessIncorrect})
+  
 
   function gameStatus(){
-    if (!isGameOver){
-      return <>
-      <p className="farewell-messages">{getFarewellText(languages[wrongGuessCount-1].name)}</p>
-      </>
+    if (!isGameOver && isLastGuessIncorrect){
+      return (<>
+        <p className="farewell-message">{getFarewellText(languages[wrongGuessCount-1].name)}</p>
+      </>)
     }
-    if (isGameOver){
-      if(isGameWon){
-        return <>
+
+
+    if(isGameWon){
+      return (<>
         <h1>You win!</h1>
         <p>Well done! 🎉</p>
-        </>
+      </>)
       }
-      else{
-        return <>
+    if(isGameLost){
+      return (<>
         <h1>Game Over!</h1>
         <p>You lose! Better start learning Assembly 😭</p>
-        </>
+      </>)
       }
-    }
+    return null
   }
 
   const languagesElements = languages.map((language,index)=> {
     let styleElements = {backgroundColor: language.backgroundColor, color: language.color}
     let languageLost = index < wrongGuessCount
     let classname = clsx("language-chip",{lost:languageLost})
-    return <p className={classname} style={styleElements}>{language.name}</p>
+    return <p key={language.name} className={classname} style={styleElements}>{language.name}</p>
   })
 
-  const letterElements = currentWord.split("").map(letter=>{
+  const letterElements = currentWord.split("").map((letter,index)=>{
     const isCorrect = guessedLetters.includes(letter) && currentWord.includes(letter)
-    return <span className="letter">{isCorrect ? letter.toUpperCase():null}</span>
+    return <span className="letter" key={index}>{isGameOver ? letter.toUpperCase(): isCorrect ? letter.toUpperCase():null}</span>
   })
 
   const alphabetElements = alphabets.split("").map(char => {
@@ -69,7 +72,7 @@ export default function App(){
     let isWrong = isGuessed && !currentWord.includes(char)
     const classname = clsx({correct: isCorrect, wrong: isWrong, over: isGameOver})
 
-    return <button key={char} className={classname} disabled={isGameOver} onClick={()=>addGuessesLetters(char)}>{char.toUpperCase()}</button>
+    return <button key={char} className={classname} disabled={isGameOver} onClick={()=>addGuessedLetters(char)}>{char.toUpperCase()}</button>
   })
 
   return (
@@ -81,7 +84,7 @@ export default function App(){
       </header>
       
       <section className={gameStatusClass}>
-        {gameStatus}
+        {gameStatus()}
       </section>
       
       <section className="language-chips">
