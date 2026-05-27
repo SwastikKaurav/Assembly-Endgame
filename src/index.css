@@ -107,9 +107,10 @@ section.keyboard{
   gap: 6px;
   max-width: 480px;
   min-height: 164px;
+  margin-bottom: 20px;
 }
 
-section.keyboard > button.alphabet-buttons{
+section.keyboard > button{
   width: 40px;
   height: 40px;
   padding: 6px;
@@ -117,5 +118,27 @@ section.keyboard > button.alphabet-buttons{
   color: #1E1E1E;
   border: 1px solid #D7D7D7;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+section.keyboard > button.correct{
+  background-color: #10A95B;
+}
+
+section.keyboard > button.wrong{
+  background-color: #EC5D49;
+}
+
+section.new-game-button-section > button.new-game-button{
+  background-color: #11B5E5;
+  width: 228px;
+  height: 40px;
+  gap: 6px;
+  border: 1px solid #D7D7D7;
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  padding-left: 12px;
   cursor: pointer;
 }

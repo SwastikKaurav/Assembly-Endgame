@@ -1,15 +1,21 @@
 import React from "react"
 import {languages} from "./languages.js"
+import {clsx} from "clsx"
 
 export default function App(){
   let [currentWord, setCurrentWord] = React.useState("react")
   let [guessedLetters, setGuessedLetters] = React.useState([])
 
-  const alphabets = "abcdefgfijklmnopqrstuvwxyz"
+  const alphabets = "abcdefghijklmnopqrstuvwxyz"
+
+  let wrongGuessCount =  guessedLetters.filter(letter=> !currentWord.includes(letter)).length
+  let isGameWon = currentWord.split("").every(letter=> guessedLetters.includes(letter))
+  let isGameLost = wrongGuessCount >= languages.length - 1
+  let isGameOver = isGameWon || isGameLost
 
   function addGuessesLetters(char){
     setGuessedLetters(prevLetters => (
-      currentWord.includes(prevLetters) ? prevLetters:{...prevLetters, char}
+      prevLetters.includes(char) ? prevLetters:[...prevLetters, char]
     ))
   }
 
@@ -18,13 +24,18 @@ export default function App(){
     return <p className="language-name" style={styleElements}>{language.name}</p>
   })
 
-  const letterElements = currentWord.split("").map(letter=>(
-    <span className="letter">{letter.toUpperCase()}</span>
-  ))
+  const letterElements = currentWord.split("").map(letter=>{
+    const isCorrect = guessedLetters.includes(letter) && currentWord.includes(letter)
+    return <span className="letter">{isCorrect ? letter.toUpperCase():null}</span>
+  })
 
-  const alphabetElements = alphabets.split("").map(char => (
-    <button key={char} className="alphabet-buttons" onClick={()=>addGuessesLetters(char)}>{char.toUpperCase()}</button>
-  ))
+  const alphabetElements = alphabets.split("").map(char => {
+    let isGuessed = guessedLetters.includes(char)
+    let isCorrect = isGuessed && currentWord.includes(char)
+    let isWrong = isGuessed && !currentWord.includes(char)
+    const classname = clsx({correct: isCorrect, wrong: isWrong})
+    return <button key={char} className={classname} onClick={()=>addGuessesLetters(char)}>{char.toUpperCase()}</button>
+  })
 
   return (
     <main>
@@ -49,6 +60,10 @@ export default function App(){
       
       <section className="keyboard">
         {alphabetElements}
+      </section>
+
+      <section className="new-game-button-section">
+        {isGameOver ? <button className="new-game-button">New Game</button>:null}
       </section>
 
     </main>
