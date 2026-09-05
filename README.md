@@ -9,6 +9,8 @@ A word-guessing game built with React where you must guess the hidden word befor
 - Each wrong guess eliminates a programming language
 - Guess the word before all languages are gone to win!
 
+🔗 **Live Site:** (https://assembly-endgame-gitman.vercel.app/)
+
 ## 🚀 Getting Started
 
 ```bash
